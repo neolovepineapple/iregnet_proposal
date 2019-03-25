@@ -79,7 +79,7 @@ This part focus on the theoratical aspect of the implementation. The keys when s
 
 After fit the model on training set and make prediction on validation set, the validation errors are calculated by different error functions. Having searched some of the existing packages, I believe there are some error functions suitable for our project.
 
-**-Mean Square Error**
+-Mean Square Error
 
 Mean square error measures how far the predicted values are from the target intervals. To better understand this measurement, I write an R function:
 
@@ -91,11 +91,23 @@ mse.error <- function(gt.left, gt.right, pred){
 }
 ```
 
-In this function, ```gt.left ``` and ```gt.right``` represent for the left and right bound of ground truth interval. ```pred``` represents the predict value. Easy to understand right? The greater the distance outside the ground truth interval, the greater the error is. See the graph below for more detail.
+In this function, ```gt.left ``` and ```gt.right``` represent for the left and right bound of ground truth interval. ```pred``` represents the predict value. Easy to understand right? The greater the distance, the greater the error is. See the graph below for more detail.
 
-![](mdfile/mse_plot.png)
+![](mdfiles/mse_plot.png)
 
-In this graph, I set the left and right bound to 1 and 3. 
+
+In this graph, I set the left and right bound to 1 and 3. The error increase quadratically if the prediction lies outside the interval.
+
+-log likelihood
+iregnet use coordinate descent solver to maximize the log likelihood function. Thus, it is a natural idea to use log likelihood to measure the performance in cross validation. The calculation of log likelihood depends on the type of ground truth. Take the example of gaussian distribution, if the left and right bound of interval are the same, the likelihood function is a density function for a normal distribution with mean equal to the prediction and standard deviation equal to the scale. The metrics is the return value when ground truth is passed as a argument to this density function. Following graph illustrate this idea.
+
+![](mdfiles/density_plot.png)
+
+
+
+For most of the case, which the ground truth is not a exact value but an interval, the metrics is given by the area between the left bound and right bound under the same density curve. See following graph for detail.
+
+![](mdfiles/probability_plot.png)
 
 
 
