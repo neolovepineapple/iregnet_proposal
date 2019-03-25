@@ -77,22 +77,25 @@ In this section, my goal is to implement a cross-validation function to fit an i
 
 This part focus on the theoratical aspect of the implementation. The keys when select the best lambda value by cross validation are error functions and selecting criterion. 
 
-After fit the model on training set and make prediction on validation set, the validation errors are calculated by different error functions. Having searched some of the existing packages, I believe there are three error functions suitable for our project.
+After fit the model on training set and make prediction on validation set, the validation errors are calculated by different error functions. Having searched some of the existing packages, I believe there are some error functions suitable for our project.
 
-**-Squared Hinge Loss**
+**-Mean Square Error**
 
-Squared hinge loss measures how far the predicted log(penalty) values are from the target intervals. To better understand this measurement, I write an R function:
+Mean square error measures how far the predicted values are from the target intervals. To better understand this measurement, I write an R function:
 
 ```r
-squared.hinge <- function(gt.left, gt.right, pred, margin){
+mse.error <- function(gt.left, gt.right, pred){
   gap.left <- pred - gt.left
   gap.right <- gt.right - pred
-  return(ifelse(gap.left<margin,gap.left-margin,0)+ifelse(gap.right<margin,gap.right-margin,0))
+  return(min(0,gap.left)**2+min(0,gap.right)**2)
 }
 ```
 
-In this function, ```r gt.left ```
+In this function, ```gt.left ``` and ```gt.right``` represent for the left and right bound of ground truth interval. ```pred``` represents the predict value. Easy to understand right? The greater the distance outside the ground truth interval, the greater the error is. See the graph below for more detail.
 
+![](mdfile/mse_plot.png)
+
+In this graph, I set the left and right bound to 1 and 3. 
 
 
 
