@@ -1,11 +1,5 @@
----
-header-includes:
-  - \usepackage{algorithm2e}
----
-
 # iregnet on CRAN
 
----
 ## Project Info
 
 **Project title:** iregnet on CRAN
@@ -13,7 +7,6 @@ header-includes:
 **URL of project idea page:** [https://github.com/rstats-gsoc/gsoc2019/wiki/iregnet-on-CRAN](https://github.com/rstats-gsoc/gsoc2019/wiki/iregnet-on-CRAN)
 
 
----
 ## Bio of Student
 
 I am Ao Ni, currently a senior student who major in Applied Statistics at Sun Yat-sen University, China. After graduation, I will study for a master's degree in Computer Science at Johns Hopkins University. I code in Python, C++, R and Swift. During my undergraduate years, I have worked on many Computer Science or Statistics related project, including the development of R Package. 
@@ -22,7 +15,6 @@ Survival Analysis is one of my favorite course, that's why I am so excited about
 
 
 
----
 ## Contact Information
 
 **Student name:** Ao Ni
@@ -39,7 +31,6 @@ Survival Analysis is one of my favorite course, that's why I am so excited about
 
 
 
----
 ## Student Affiliation 
 
 **Institution:** School of Mathematics, Sun Yat-sen University
@@ -56,12 +47,10 @@ email: mcslhy@mail.sysu.edu.cn
 
 
 
----
 ## Schedule Conflicts
 
 I will commit my whole summer to GSoC. There will be no other internships or projects during this summer.
 
----
 ## Mentors
 **Mentor names:**
 
@@ -78,7 +67,6 @@ I will commit my whole summer to GSoC. There will be no other internships or pro
 
 
 
----
 ## Coding Plan and Method
 
 ### Implement a cross validation method on iregnet
@@ -95,12 +83,15 @@ After fit the model on training set and make prediction on validation set, the v
 
 Squared hinge loss measures how far the predicted log(penalty) values are from the target intervals. To better understand this measurement, I write an R function:
 
-```r 
-squared.hinge <- function(x, e=1){
-  ifelse(x<e,(x-e)^2,0)
+```r
+squared.hinge <- function(gt.left, gt.right, pred, margin){
+  gap.left <- pred - gt.left
+  gap.right <- gt.right - pred
+  return(ifelse(gap.left<margin,gap.left-margin,0)+ifelse(gap.right<margin,gap.right-margin,0))
 }
-
 ```
+
+In this function, ```r gt.left ```
 
 
 
