@@ -132,17 +132,16 @@ I will start my implementation with a R function ```iregnetCV()```
 ```r
 
 iregnetCV <- function(
-### This function use cross-validation to fit accelerated failure time models 
-### failure time models. This function calls iregnet repeatedly to find the best 
-### lambda.
+### This function use cross-validation to fit accelerated failure time models,it calls 
+### iregnet repeatedly to find the best lambda.
   x,
 ### Input matrix of covariates with dimension n_obs * n_vars, with nvars ≥ 2.
 ### Sparse matrices are not supported.
   y,
 ### Response variable. It can take two forms
-  n.folds = 5,
+  num_folds = 5,
 ### The number of folds. 
-  flod.id = sample(rep(1:n.folds,length.out = nrow(x))),
+  flod_id = sample(rep(1:n.folds,length.out = nrow(x))),
 ### Index for each validation set.
   family = "gaussian",
 ### The distribution to fit. 
@@ -189,14 +188,17 @@ debug = FALSE
 }
 ```
 
+To perform the cross validation, this function would exam the lambda value. If the lambda sequence is not specified, it would be computed by algorithm. The exact value of each lambda is determined by feeded data and length of the sequence.
+
+Then, all the samples are divided to ```num_flods``` flods randomly. All ```num_flods``` models are trained and evaluated with each fold given a chance to be the held out testing set. The models are then discarded after they are evaluated as they have served their purpose.
+
+Now we have the validation result of all K models. Each sample have ```num_lambda``` validation errors. For each lambda, average the error rates from all samples out to get a mean and standard deviation. Lastly, we can select the best lambda with ```min``` or ```1sd``` method.The return value of this function is a S3 object iregnetCV. 
 
 
 
+### Improve all the docs and tests to pass all CRAN checks
 
-### Write a qualified docs to pass all CRAN checks.
-
-
-### Implementation of Vignette
+### Vignette
 
 
 
