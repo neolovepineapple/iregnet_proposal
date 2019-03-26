@@ -109,7 +109,7 @@ op.error<- function(gt.left, gt.right, pred){
 
 
 
-Selecting criterion pecifies how the regularization parameter is chosen during the internal cross-validation loop. For the most part there are two way to choose parameter.
+Selecting criterion specifies how the regularization parameter is chosen during the internal cross-validation loop. For the most part there are two way to choose parameter.
 
 -min
 
@@ -125,6 +125,69 @@ take the most regularized model which is within one standard deviation of that m
 
 #### Details for Implementation
 
+I will start my implementation with a R function ```iregnetCV()```
+
+
+
+```r
+
+iregnetCV <- function(
+### This function use cross-validation to fit accelerated failure time models 
+### failure time models. This function calls iregnet repeatedly to find the best 
+### lambda.
+  x,
+### Input matrix of covariates with dimension n_obs * n_vars, with nvars ≥ 2.
+### Sparse matrices are not supported.
+  y,
+### Response variable. It can take two forms
+  n.folds = 5,
+### The number of folds. 
+  flod.id = sample(rep(1:n.folds,length.out = nrow(x))),
+### Index for each validation set.
+  family = "gaussian",
+### The distribution to fit. 
+  alpha = 1,
+### Elastic net mixing parameter, with 0 ≤ α ≤ 1. 
+  lambda = NULL,
+### Vector containing the path of decreasing regularization parameter lambda values.
+  num_lambda = 100,
+### The number of lambda values calculated by the function. Ignored if lambda
+### is supplied by the user. 
+  loss.func = "loglik",
+### After fitting the model on training set and makeing prediction on validation set,
+### the validation errors are calculated by error functions. specify loss function 
+### using 'loss.func'
+###   'loglik': The calculation of log likelihood depends on the type of ground truth. 
+###   Take the example of gaussian distribution, if the left and right bound of 
+###   interval are the same, the likelihood function is a density function for a normal
+###   distribution with mean equal to the prediction and standard deviation equal to 
+###   the scale. The metrics is the return value when ground truth is passed as a 
+###   argument to this density function. For the most part, the ground truth is not 
+###   a exact value but an interval, the metrics is given by the area between the left 
+###   bound and right bound under the same density curve. See following graph for detail.
+###   'outpred': Outside prediction means the percentage of predicted values which are 
+###   outside the corresponding label/interval.
+  type = "min",
+### This argument specifies how the regularization parameter is chosen 
+### during the internal cross-validation loop.
+###   'min': Take the mean of cross validation errors for each lambda,
+###   then choose the lambda that result in the minimum error. It tends 
+###   to yield the least test error.
+###   '1sd': Take the most regularized model which is within one standard 
+###   deviation of that minimum, this model is typically a bit less accurate, 
+###   but much less, complex, so better if you want to interpret the coefficients.
+intercept = TRUE,
+standardize = TRUE,
+scale_init = NA,
+maxiter = 1e3,
+threshold = 1e-4,
+unreg_sol = TRUE,
+eps_lambda = ifelse(ncol(x)<nrow(x),0.0001,0.1),
+debug = FALSE
+){
+  ...
+}
+```
 
 
 
