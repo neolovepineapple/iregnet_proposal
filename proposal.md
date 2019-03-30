@@ -234,7 +234,7 @@ Then, all the samples are divided to ```num_flods``` flods randomly. All ```num_
 
 Now we have the validation result of all K models. Each sample have ```num_lambda``` validation errors. For each lambda, average the error rates from all samples out to get a mean and standard deviation. Lastly, we can select the best lambda with ```min``` or ```1sd``` method.The return value of this function is a S3 object iregnetCV. 
 
-
+Beyond ```cv.iregnet``` itself, I will also implement its S3 method (e.g. predict.cv.iregnet).
 
 ### Improve all the docs and tests to pass all CRAN checks
 
@@ -389,10 +389,12 @@ Currently we can use ```Sweave``` and ```knitr``` to write a vignette, both LaTe
 
 To write the first vignette, I have to figure out the methodological foundation of this model for sure. Luckily, the idea [page](https://github.com/rstats-gsoc/gsoc2019/wiki/iregnet-on-CRAN#coding-project-iregnet-on-cran) provides several documents that explain AFT model, interval regression and coordinate descent solver. I suggest that this vignette should focus more on the presumption of input data (e.g. distribution of ```y```) and application scenario (e.g. survival analysis). In the process of dealing with doctors on different medical research project, I realize that most doctors don't want to understand, and can't understand complex mathematical formulas. Rather, they wish to know the practical value of a model on their research, especially when it comes to a new model. In conclusion, I will organize this vignette with three parts. The first part is its methodological foundation, second part is its application scenario, and the last part is some practical examples.
 
-For the last part
+For the last part, several datasets are avaliable to use for demostration.
 
-
-
-
+| Dataset Name | Description | Sample Size | Feature Number|
+| ----------- | ----------- | ----------- | ----------- |
+| neuroblastomaProcessed | predicting breakpoints in DNA copy number profiles | 3418 | 117 |
+| penalty.learning | predicting peaks in epigenomic data | 443 | 22 |
+| ??? | ??? | 4960 | 37 |
 
 
