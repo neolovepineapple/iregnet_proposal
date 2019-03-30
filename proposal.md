@@ -332,6 +332,49 @@ Re-running with no redirection of stdout/stderr.
 * DONE
 Status: 1 ERROR, 1 WARNING, 3 NOTEs
 ```
+1 error, 1 warning and 3 notes. Let's go throught them one by one.
+
+The first error happened when check PDF version of manual without hyperrefs or index. I fixed it by installing MacTex on my laptop.
+
+The first warning indicate Rd problems. Then I run ```R CMD Rd2pdf ``` , it return ```Error : iregnet_2016.11.02.tar.gz: Sections \title, and \name must exist and be unique in Rd files```. However, I have checked all the ```.Rd``` file many times but didn't find any bugs. I believe it has something to do with my environment. I will check and fix them during summer.
+
+The first note happend when check CRAN incoming feasibility. Since I am not intended to submit it to CRAN, we can ignore it for now.
+
+The second note:
+```
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  .travis.yml
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+
+CRAN-pack does not know about
+  .travis.yml
+```
+
+Easy to fix! I can use ```.Rbuildignore``` file to ensure that these files aren't included with the created R package.
+
+As for the third note:
+
+```
+* checking compiled code ... NOTE
+File ‘iregnet/libs/iregnet.so’:
+  Found ‘_printf’, possibly from ‘printf’ (C)
+    Object: ‘iregnet_fit.o’
+
+Compiled code should not call entry points which might terminate R nor
+write to stdout/stderr instead of to the console, nor use Fortran I/O
+nor system RNGs.
+
+See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
+```
+I believe replace ```printf``` with ```Rprintf``` can fix this issue.
+
+I also run the check command on a OSX system, to eliminate all the possible issues, I will check the package on as many system as possible (i.e. Linux, Windows)
+
+Fixing all the issues is only the first step. I will submit this package as early as possible in order to deal with any response from CRAN.
+
+
 
 
 
