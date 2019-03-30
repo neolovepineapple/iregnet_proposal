@@ -125,13 +125,53 @@ take the most regularized model which is within one standard deviation of that m
 
 #### Details for Implementation
 
-I will start my implementation with a R function ```iregnetCV()```
-
-
+Thanks to one of my mentor, Toby, the cross validation of iregnet is partly implemented in [PR#54](https://github.com/anujkhare/iregnet/pull/54). Toby implement a ```cv.iregnet``` function along with its S3 method (i.e. ```predict.cv.iregnet```, ```plot.cv.iregnet```).
 
 ```r
+##' First fit iregnet to the entire data set, then use K-fold
+##' cross-validation to estimate the validation error of each lambda
+##' parameter.
+##' @title Cross-validation for iregnet
+##' @param x numeric matrix of input features (n x p)
+##' @param y numeric matrix of output variables (n x 2)
+##' @param family gaussian, logistic
+##' @param nfolds positive integer between 2 and n, by default 10.
+##' @param foldid integer vector of length n (fold for each observation), by default we use nfolds.
+##' @param ... passed to iregnet for both the full and cv fits.
+##' @export
+##' @import foreach
+##' @return model fit list of class "cv.iregnet"
+##' @author Toby Dylan Hocking
+cv.iregnet <- function(x, y, family, nfolds, foldid, ...){
+  ...
+}
+``` 
 
-iregnetCV <- function(
+This function implement cross validation with 'Log Likelihood' for error function and 'min' for selecting criterion. However, it didn't include 'Outside Predict' and '1sd', which I believe are important to fullfill the "feature-complete" requirement. As a result, I would start my implement based on ```cv.iregnet``` and add more features.
+
+Additionally, I found that at the beginning of the ```cv.iregnet``` function, it fits a ```iregnet``` for the sake of getting the lambda path. I think it is a little bit redundant especially when it comes to relatively largr dataset. I suggest that we can directly generate the lambda path by a new function ```lambda.path``` without fitting the whole model. 
+
+In Toby's pull request, He mention that ```iregnet``` failed with a simple dataset below.
+
+```r
+set.seed(1)
+toy.features <- matrix(rnorm(10), 5, 2)
+toy.targets <- rbind(
+  c(1, 2),
+  c(-Inf, 5),
+  c(1, Inf),
+  c(-Inf, 3),
+  c(-Inf, 4))
+fit <- iregnet(toy.features[-1,], toy.targets[-1,])
+``` 
+
+I tested it on my own laptop and also failed, the ```fit_cpp``` function produced NAN value. I will fixed it during the summer.
+
+
+To fix all the bugs and add more features, I will reimplement the ```cv.iregnet``` function:
+
+```r
+cv.iregnet <- function(
 ### This function use cross-validation to fit accelerated failure time models,it calls 
 ### iregnet repeatedly to find the best lambda.
   x,
@@ -197,6 +237,12 @@ Now we have the validation result of all K models. Each sample have ```num_lambd
 
 
 ### Improve all the docs and tests to pass all CRAN checks
+
+
+
+
+
+
 
 ### Vignette
 
