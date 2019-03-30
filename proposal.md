@@ -49,7 +49,7 @@ email: mcslhy@mail.sysu.edu.cn
 
 ## Schedule Conflicts
 
-I will commit my whole summer to GSoC. There will be no other internships or projects during this summer.
+I will commit my whole summer to GSoC. There will be no other internships or projects during this period.
 
 ## Mentors
 **Mentor names:**
@@ -147,7 +147,7 @@ cv.iregnet <- function(x, y, family, nfolds, foldid, ...){
 }
 ``` 
 
-This function implement cross validation with 'Log Likelihood' for error function and 'min' for selecting criterion. However, it didn't include 'Outside Predict' and '1sd', which I believe are important to fullfill the "feature-complete" requirement. As a result, I would start my implement based on ```cv.iregnet``` and add more features.
+This function implement cross validation with 'Log Likelihood' for error function and 'min'/'1sd' for selecting criterion. However, it didn't include 'Outside Predict', which I believe are important to fullfill the "feature-complete" requirement. As a result, I would start my implement based on ```cv.iregnet``` and add more features.
 
 Additionally, I found that at the beginning of the ```cv.iregnet``` function, it fits a ```iregnet``` for the sake of getting the lambda path. I think it is a little bit redundant especially when it comes to relatively largr dataset. I suggest that we can directly generate the lambda path by a new function ```lambda.path``` without fitting the whole model. 
 
@@ -165,7 +165,7 @@ toy.targets <- rbind(
 fit <- iregnet(toy.features[-1,], toy.targets[-1,])
 ``` 
 
-I tested it on my own laptop and also failed, the ```fit_cpp``` function produced NAN value. I will fixed it during the summer.
+I tested it on my own laptop and also failed, the ```fit_cpp``` function produced NAN value. I will fixed it during the coding period.
 
 
 To fix all the bugs and add more features, I will reimplement the ```cv.iregnet``` function:
@@ -338,7 +338,7 @@ The first error happened when check PDF version of manual without hyperrefs or i
 
 The first warning indicate Rd problems. Then I run ```R CMD Rd2pdf ``` , it return ```Error : iregnet_2016.11.02.tar.gz: Sections \title, and \name must exist and be unique in Rd files```. However, I have checked all the ```.Rd``` file many times but didn't find any bugs. I believe it has something to do with my environment. I will check and fix them during summer.
 
-The first note happend when check CRAN incoming feasibility. Since I am not intended to submit it to CRAN, we can ignore it for now.
+The first note happend when check CRAN incoming feasibility. Since I am not intended to submit it to CRAN right now, we can ignore it for now.
 
 The second note:
 ```
@@ -370,31 +370,26 @@ See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
 ```
 I believe replace ```printf``` with ```Rprintf``` can fix this issue.
 
-I also run the check command on a OSX system, to eliminate all the possible issues, I will check the package on as many system as possible (i.e. Linux, Windows)
+I only run the check command on a OSX system. To eliminate all the possible issues, I will check the package on as many system as possible (i.e. Linux, Windows)
 
-Fixing all the issues is only the first step. I will submit this package as early as possible in order to deal with any response from CRAN.
-
-
-
-
-
+Fixing all the issues is only the first step. I will submit this package as early as possible in order to deal with any responses from CRAN in time.
 
 
 ### Vignette
 
+A vignette is a long-form guide to a package. In this project, I need to:
+
+- write a vignette which explains the statistical model, optimization problem, and shows how to use iregnet on several data sets.
+
+- write a vignette with speed/optimization accuracy comparisons (glmnet, survival, iregnet).
+
+Currently we can use ```Sweave``` and ```knitr``` to write a vignette, both LaTex and MarkDown format are supported. The implement process of a vignette is quite simple and well documented, so I won't explain it in details.
 
 
 
+To write the first vignette, I have to figure out the methodological foundation of this model for sure. Luckily, the idea [page](https://github.com/rstats-gsoc/gsoc2019/wiki/iregnet-on-CRAN#coding-project-iregnet-on-cran) provides several documents that explain AFT model, interval regression and coordinate descent solver. I suggest that this vignette should focus more on the presumption of input data (e.g. distribution of ```y```) and application scenario (e.g. survival analysis). In the process of dealing with doctors on different medical research project, I realize that most doctors don't want to understand, and can't understand complex mathematical formulas. Rather, they wish to know the practical value of a model on their research, especially when it comes to a new model. In conclusion, I will organize this vignette with three parts. The first part is its methodological foundation, second part is its application scenario, and the last part is some practical examples.
 
-
-
-
-
-
-
-
-
-
+For the last part
 
 
 
