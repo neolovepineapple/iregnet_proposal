@@ -387,14 +387,80 @@ Currently we can use ```Sweave``` and ```knitr``` to write a vignette, both LaTe
 
 
 
-To write the first vignette, I have to figure out the methodological foundation of this model for sure. Luckily, the idea [page](https://github.com/rstats-gsoc/gsoc2019/wiki/iregnet-on-CRAN#coding-project-iregnet-on-cran) provides several documents that explain AFT model, interval regression and coordinate descent solver. I suggest that this vignette should focus more on the presumption of input data (e.g. distribution of ```y```) and application scenario (e.g. survival analysis). In the process of dealing with doctors on different medical research project, I realize that most doctors don't want to understand, and can't understand complex mathematical formulas. Rather, they wish to know the practical value of a model on their research, especially when it comes to a new model. In conclusion, I will organize this vignette with three parts. The first part is its methodological foundation, second part is its application scenario, and the last part is some practical examples.
+To write the first vignette, I have to figure out the methodological foundation of this model for sure. Luckily, the idea [page](https://github.com/rstats-gsoc/gsoc2019/wiki/iregnet-on-CRAN#coding-project-iregnet-on-cran) provides several documents that explain AFT model, interval regression and coordinate descent solver. 
+
+I suggest that this vignette should focus more on the presumption of input data (e.g. distribution of ```y```), statistical inference and application scenario (e.g. survival analysis). In the process of dealing with doctors on different medical research project, I realize that most doctors pay much more attention to the practical value of a model on their research. Thus, I will organize this vignette in three parts. The first part is its methodological foundation, second part is its application scenario, and the last part is some practical examples.
 
 For the last part, several datasets are avaliable to use for demostration.
+
 
 | Dataset Name | Description | Sample Size | Feature Number|
 | ----------- | ----------- | ----------- | ----------- |
 | neuroblastomaProcessed | predicting breakpoints in DNA copy number profiles | 3418 | 117 |
 | penalty.learning | predicting peaks in epigenomic data | 443 | 22 |
 | ??? | ??? | 4960 | 37 |
+
+I will explore more avaliable datasets which are suitable for our package before the coding period.
+
+As for the second vignette, I will compare the speed/accuracy of several similar packages (i.e. glmnet, survival, iregnet).
+
+| function/pkg      | censoring                   | regularization | loss                      | algorithm          |
+|-------------------+-----------------------------+----------------+---------------------------+--------------------|
+| glmnet            | none, right                 | L1 + L2        | Cox                       | coordinate descent |
+| survreg(survival) | none, right, left, interval | none           | normal, logistic, Weibull | Newton-Raphson     |
+| iregnet           | none, right, left, interval | L1 + L2        | normal, logistic, Weibull | coordinate descent |
+
+
+I already compared the costing time of ```glmnet``` with ```iregnet``` and accuracy of ```penaltyLearning``` with ```iregnet``` in the previous tests. To compare the time costing of different packages, large dataset are required. I will use randomly generated dataset that following the presumption of models(i.e. link funtion and data distribution) to perform the test. ```ggplot2``` will be used for visualization.
+
+
+
+## Timeline
+
+
+### Before Coding Period
+
+- Purchase a cloud service (Alibaba Cloud or AWS) and set up the build environment.
+
+- Get acquainted with the code structure of ```iregnet``` and all the other related packages.
+
+- Read and understand all the papers and documents that explain the statistical model in ```iregnet```
+
+
+### Week 1
+
+- Discuss with mentor and fix the ```NAN``` issue metioned above. 
+
+- Test the ```iregnet``` function on as many datasets as possible to make sure ```warning``` or ```error``` do not appear. 
+
+### Week 2
+
+- Implement the ```cv.iregnet``` function and its S3 method. 
+
+- Test the function on several differnet datasets.
+
+
+### Week 3-4
+
+- Write a ```testthat``` script and ```.Rd``` document for ```cv.iregnet```
+
+- Write two required vignettes. 
+
+
+### Week 5
+
+- Check the package and fix all ```error```, ```warning``` and ```note```.
+
+- Install and test the package on differenct operating system (i.e. Windows, Mac OS X, Linux and Solaris)
+
+- Check all the files and information (e.g. maintainer’s e-mail address, copyright holders) to meet CRAN policies.
+
+### Week 6-12
+
+- Submit the package to CRAN.
+
+
+
+
 
 
