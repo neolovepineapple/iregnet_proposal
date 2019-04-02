@@ -404,8 +404,9 @@ I will explore more avaliable datasets which are suitable for our package before
 
 As for the second vignette, I will compare the speed/accuracy of several similar packages (i.e. glmnet, survival, iregnet).
 
+
 | function/pkg      | censoring                   | regularization | loss                      | algorithm          |
-|-------------------+-----------------------------+----------------+---------------------------+--------------------|
+|-------------------|-----------------------------|----------------|---------------------------|--------------------|
 | glmnet            | none, right                 | L1 + L2        | Cox                       | coordinate descent |
 | survreg(survival) | none, right, left, interval | none           | normal, logistic, Weibull | Newton-Raphson     |
 | iregnet           | none, right, left, interval | L1 + L2        | normal, logistic, Weibull | coordinate descent |
