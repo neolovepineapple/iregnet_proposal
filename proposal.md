@@ -462,13 +462,15 @@ I already compared the costing time of ```glmnet``` with ```iregnet``` and accur
 
 ### Week 7
 
-- Spare extra 1 weeks in case some of the work getting delay. However, I will make sure that the we release the package successfully within the first 6 weeks of GSoC.
+- Spare extra 1 weeks in case some of the work getting delay. I will make sure that the we release the package successfully within the first 6 weeks of GSoC.
 
 ### Week 8-12
 
 - Write a blog about ```iregnet```!
 
-- Receive feedback from package users and plan the next version of ```iregnet`.
+- Receive feedback from package users and plan the next version of ```iregnet```.
+
+
 
 
 ## Management of Coding Project
