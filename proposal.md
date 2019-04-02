@@ -81,7 +81,7 @@ After fitting the model on training set and makeing prediction on validation set
 
 
 
--Log Likelihood
+- Log Likelihood
 
 iregnet use coordinate descent solver to maximize the log likelihood function. Thus, it is a natural idea to use log likelihood to measure the performance in cross validation. The calculation of log likelihood depends on the type of ground truth. Take the example of gaussian distribution, if the left and right bound of interval are the same, the likelihood function is a density function for a normal distribution with mean equal to the prediction and standard deviation equal to the scale. The metrics is the return value when ground truth is passed as a argument to this density function. Following graph illustrate this idea.
 
@@ -94,7 +94,7 @@ For the most part, the ground truth is not a exact value but an interval, the me
 ![](mdfiles/probability_plot.png)
 
  
--Outside Prediction
+- Outside Prediction
 
 Outside prediction means the percentage of predicted values which are outside the corresponding label/interval. We need a explainable metric when we train a model and want to test the performace on a testing set. Unluckily, log likelihood is not able to fulfill the requirement. Outside prediction is a better metric because it intuitivly presents the performance of model. Thus, use this metric in a cross validation can result in a higher performance model.
 
@@ -111,12 +111,12 @@ op.error<- function(gt.left, gt.right, pred){
 
 Selecting criterion specifies how the regularization parameter is chosen during the internal cross-validation loop. For the most part there are two way to choose parameter.
 
--min
+- min
 
 First take the mean of cross validation errors for each lambda, then choose the lambda that result in the minimum error. It tends to yield the least test error.
 
 
--1sd
+- 1sd
 
 take the most regularized model which is within one standard deviation of that minimum, this model is typically a bit less accurate, but much less, complex, so better if you want to interpret the coefficients.
 
