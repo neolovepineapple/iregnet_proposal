@@ -475,7 +475,7 @@ I already compared the costing time of ```glmnet``` with ```iregnet``` and accur
 
 ## Management of Coding Project
 
-Before submit my code, I would make sure it pass all the test in different environment. I plan to commit twice a week, depending on the specific work during that week. I will contact my mentor ahead of time if there is any unexpected situation.
+Before submit my code, I would make sure it passes all the tests in different environments. I plan to commit twice a week, depending on the specific work during that week. I will contact my mentor ahead of time if there is any unexpected situation.
 
 
 ## Test
