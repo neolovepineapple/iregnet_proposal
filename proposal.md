@@ -238,7 +238,7 @@ Beyond ```cv.iregnet``` itself, I will also implement its S3 method (e.g. predic
 
 ### Improve all the docs and tests to pass all CRAN checks
 
-To pass the CRAN checks, first I run ```R CMD check --as-cran``` command on my own laptop.
+To pass the CRAN checks, I run ```R CMD check --as-cran``` command on my own laptop.
 
 ```
 * using log directory ‘/Users/neo/Desktop/GSoC2019/R_iregnet/iregnet.Rcheck’
@@ -412,7 +412,7 @@ As for the second vignette, I will compare the speed/accuracy of several similar
 | iregnet           | none, right, left, interval | L1 + L2        | normal, logistic, Weibull | coordinate descent |
 
 
-I already compared the costing time of ```glmnet``` with ```iregnet``` and accuracy of ```penaltyLearning``` with ```iregnet``` in the previous tests. To compare the time costing of different packages, large dataset are required. I will use randomly generated dataset that following the presumption of models(i.e. link funtion and data distribution) to perform the test. ```ggplot2``` will be used for visualization.
+I already compared the costing time of ```glmnet``` with ```iregnet``` and accuracy of ```penaltyLearning``` with ```iregnet``` in the  tests. To compare the time costing of different packages, large dataset are required. I will use randomly generated dataset that following the presumption of models(i.e. link funtion and data distribution) to perform the test. ```ggplot2``` will be used for visualization.
 
 
 
@@ -456,9 +456,34 @@ I already compared the costing time of ```glmnet``` with ```iregnet``` and accur
 
 - Check all the files and information (e.g. maintainer’s e-mail address, copyright holders) to meet CRAN policies.
 
-### Week 6-12
+### Week 6
 
 - Submit the package to CRAN.
+
+### Week 7
+
+- Spare extra 1 weeks in case some of the work getting delay. However, I will make sure that the we release the package successfully within the first 6 weeks of GSoC.
+
+### Week 8-12
+
+- Write a blog about ```iregnet```!
+
+- Receive feedback from package users and plan the next version of ```iregnet`.
+
+
+## Management of Coding Project
+
+Before submit my code, I would make sure it pass all the test in different environment. I plan to commit twice a week, depending on the specific work during that week. I will contact my mentor ahead of time if there is any unexpected situation.
+
+
+## Test
+
+
+- Solution to Easy Test: [Easy Test](https://github.com/neolovepineapple/GSoC_iregnetonCRAN/blob/master/Easy_Test.md)
+
+- Solution to Medium Test: [Medium Test](https://github.com/neolovepineapple/GSoC_iregnetonCRAN/blob/master/Medium_Test.md)
+
+- Solution to Hard Test* : [Hard Test](https://github.com/neolovepineapple/GSoC_iregnetonCRAN/blob/master/Hard_Test.md)
 
 
 
